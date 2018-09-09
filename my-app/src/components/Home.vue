@@ -16,7 +16,9 @@
                     <v-carousel-item
                     v-for="meetup in meetups"
                     :key="meetup.id"
-                    :src="meetup.imageUrl">
+                    :src="meetup.imageUrl"
+                    @click="onLoadMeetup(meetup.id)"
+                    style="cursor: pointer">
                     <div class="title">
                         {{ meetup.title }}
                     </div>
@@ -42,17 +44,23 @@ export default {
         {
           imageUrl:
             "https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop",
-          id: "aasdasdsdasdasdqqwcz",
+          id: "meetup-id-0",
           title: "una meetup"
         },
         {
           imageUrl:
             "https://media-cdn.tripadvisor.com/media/photo-s/0d/f5/7c/f2/eiffel-tower-priority.jpg",
-          id: "asdasdasdqqwcz",
+          id: "meetup-id-1",
           title: "una meetup"
         }
       ]
     };
+  },
+  methods: {
+    onLoadMeetup(id) {
+      console.log(id);
+      this.$router.push("/meetup/" + id);
+    }
   }
 };
 </script>
