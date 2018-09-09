@@ -1,53 +1,59 @@
 <template>
   <v-app>
 
-    <v-toolbar dark class="purple darken-1">
-      <v-toolbar-side-icon
-        @click.native.stop="sideNav = !sideNav"
-        class="hidden-sm-and-up"
-        ></v-toolbar-side-icon>
-      <v-toolbar-title>DevMeetup</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat @click.native.stop="sideNav = !sideNav">
-          <v-icon left dark>supervisor_account</v-icon>
-          View Meetups</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
-
-    <v-navigation-drawer v-model="sideNav">
+    <v-navigation-drawer v-model="sideNav" absolute clipped >
       <v-list>
-        <v-list-tile>
-          <v-list-tile-action><v-icon>supervisor_account</v-icon></v-list-tile-action>
-          <v-list-tile-content>View Meetps</v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action><v-icon>fingerprint</v-icon></v-list-tile-action>
-          <v-list-tile-content>Fingerprint</v-list-tile-content>
+        <v-list-tile
+          v-for="item in menuItems"
+          :key="item.title"
+          :to="item.link">
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
 
-    <main>
+    <v-toolbar dark class="primary">
+      <v-toolbar-side-icon
+        @click.stop="sideNav = !sideNav"
+        class="hidden-sm-and-up"></v-toolbar-side-icon>
+      <v-toolbar-title>
+        <router-link to="/" style="cursor: pointer" tag="span">DevMeetup</router-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-xs-only">
+        <v-btn
+          flat
+          v-for="item in menuItems"
+          :key="item.title"
+          :to="item.link">
+          <v-icon left dark>{{ item.icon }}</v-icon>{{ item.title }} </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
 
+    <main>
+      <router-view></router-view>
     </main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
 export default {
   name: "App",
-  components: {
-    HelloWorld
-  },
+  components: {},
   data() {
     return {
-      sideNav: false
-    }
+      sideNav: false,
+      menuItems: [
+        { icon: "supervisor_account", title: "List", link: "/meetups" },
+        { icon: "room", title: "Organize", link: "/meetup/new" },
+        { icon: "person", title: "Profile", link: "/profile" },
+        { icon: "face", title: "Sign Up", link: "/signup" },
+        { icon: "lock_open", title: "Sign in", link: "/signin" }
+      ]
+    };
   }
 };
 </script>
