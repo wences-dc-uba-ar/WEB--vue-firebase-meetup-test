@@ -38,23 +38,14 @@
 
 <script>
 export default {
+  computed: {
+    meetups() {
+      //   return this.$store.getters.loadedMeetups
+      return this.$store.getters.featuredMeetups;
+    }
+  },
   data() {
-    return {
-      meetups: [
-        {
-          imageUrl:
-            "https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop",
-          id: "meetup-id-0",
-          title: "una meetup"
-        },
-        {
-          imageUrl:
-            "https://media-cdn.tripadvisor.com/media/photo-s/0d/f5/7c/f2/eiffel-tower-priority.jpg",
-          id: "meetup-id-1",
-          title: "una meetup"
-        }
-      ]
-    };
+    return {};
   },
   methods: {
     onLoadMeetup(id) {
