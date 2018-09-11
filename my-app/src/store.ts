@@ -70,7 +70,7 @@ export default new Vuex.Store({
   actions: {},
   getters: {
     loadedMeetups(state) {
-      return state.loadedMeetups.sort((meetupA, meetupB) => Date.parse(meetupA.date) - Date.parse(meetupA.date));
+      return state.loadedMeetups.sort((meetupA, meetupB) => Date.parse(meetupA.date) - Date.parse(meetupB.date));
     },
     featuredMeetups(state, getters) {
       return getters.loadedMeetups.slice(0, 5);
