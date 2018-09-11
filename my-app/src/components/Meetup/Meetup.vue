@@ -29,11 +29,11 @@
 
 <script>
 export default {
-  props: ['id'],
+  props: ["id"],
   computed: {
-    meetup () {
-      return this.$store.getters.loadedMeetup(this.id)
+    meetup() {
+      return this.$store.getters.loadedMeetup(this.id);
     }
   }
-}
+};
 </script>

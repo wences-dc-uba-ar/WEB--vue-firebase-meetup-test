@@ -12,7 +12,8 @@ export default new Vuex.Store({
         id: "meetup-id-0",
         title: "una meetup",
         date: "2018-10-02",
-        description: "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
+        description:
+          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       },
       {
         imageUrl:
@@ -20,7 +21,8 @@ export default new Vuex.Store({
         id: "meetup-id-1",
         title: "otra meetup",
         date: "2018-10-03",
-        description: "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
+        description:
+          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       },
       {
         imageUrl:
@@ -28,7 +30,8 @@ export default new Vuex.Store({
         id: "meetup-id-5",
         title: "una meetup",
         date: "2018-10-04",
-        description: "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
+        description:
+          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       },
       {
         imageUrl:
@@ -36,7 +39,8 @@ export default new Vuex.Store({
         id: "meetup-id-2",
         title: "una meetup",
         date: "2018-10-05",
-        description: "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
+        description:
+          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       },
       {
         imageUrl:
@@ -44,7 +48,8 @@ export default new Vuex.Store({
         id: "meetup-id-3",
         title: "una meetup",
         date: "2018-10-06",
-        description: "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
+        description:
+          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       },
       {
         imageUrl:
@@ -52,7 +57,8 @@ export default new Vuex.Store({
         id: "meetup-id-4",
         title: "una meetup",
         date: "2018-10-07",
-        description: "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
+        description:
+          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       }
     ],
     user: {
