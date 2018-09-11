@@ -32,42 +32,31 @@ export default new Vuex.Store({
         date: "2018-10-04",
         description:
           "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
-      },
-      {
-        imageUrl:
-          "https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop",
-        id: "meetup-id-2",
-        title: "una meetup",
-        date: "2018-10-05",
-        description:
-          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
-      },
-      {
-        imageUrl:
-          "https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop",
-        id: "meetup-id-3",
-        title: "una meetup",
-        date: "2018-10-06",
-        description:
-          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
-      },
-      {
-        imageUrl:
-          "https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop",
-        id: "meetup-id-4",
-        title: "una meetup",
-        date: "2018-10-07",
-        description:
-          "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
-      }
-    ],
+      }    ],
     user: {
       id: "12341423",
       registeredMeetups: ["qerqweqweqwe"]
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    createMeetup(state, payload) {
+      state.loadedMeetups.push(payload);
+    }
+  },
+  actions: {
+    createMeetup({ commit }, payload) {
+      const meetup = {
+        title: payload.title,
+        location: payload.location,
+        imageUrl: payload.imageUrl,
+        description: payload.description,
+        date: payload.date,
+        id:   'id_' + Math.random().toString(36).substr(2, 6)
+      };
+      // store it remote
+      commit("createMeetup", meetup);
+    }
+  },
   getters: {
     loadedMeetups(state) {
       return state.loadedMeetups.sort((meetupA, meetupB) => Date.parse(meetupA.date) - Date.parse(meetupB.date));

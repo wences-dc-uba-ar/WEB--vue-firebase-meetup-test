@@ -35,7 +35,7 @@ export default new Router({
         import(/* webpackChunkName: "meetups" */ "@/components/Meetup/Meetups.vue")
     },
     {
-      path: "/meetups/new",
+      path: "/meetup/new",
       name: "CreateMeetup",
       component: CreateMeetup
     },
