@@ -64,9 +64,7 @@ export default new Vuex.Store({
   actions: {},
   getters: {
     loadedMeetups(state) {
-      return state.loadedMeetups.sort((meetupA, meetupB) => {
-        return meetupA.date > meetupB.date;
-      });
+      return state.loadedMeetups.sort((meetupA, meetupB) => Date.parse(meetupA.date) - Date.parse(meetupA.date));
     },
     featuredMeetups(state, getters) {
       return getters.loadedMeetups.slice(0, 5);
