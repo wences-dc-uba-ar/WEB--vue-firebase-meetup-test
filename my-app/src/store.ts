@@ -10,8 +10,9 @@ export default new Vuex.Store({
         imageUrl:
           "https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop",
         id: "meetup-id-0",
-        title: "una meetup",
-        date: "2018-10-02",
+        title: "Big Apple Meetup",
+        location: "New York",
+        date: new Date(),
         description:
           "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       },
@@ -19,17 +20,19 @@ export default new Vuex.Store({
         imageUrl:
           "https://media-cdn.tripadvisor.com/media/photo-s/0d/f5/7c/f2/eiffel-tower-priority.jpg",
         id: "meetup-id-1",
-        title: "otra meetup",
-        date: "2018-10-03",
+        title: "Oh Lala Meetup!",
+        location: "Paris",
+        date: new Date(),
         description:
           "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       },
       {
         imageUrl:
-          "https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop",
+          "https://www.seetorontonow.com/wp-content/uploads/2018/05/toronto-skyline-summer-evening.jpg",
         id: "meetup-id-5",
-        title: "una meetup",
-        date: "2018-10-04",
+        title: "Maple Meetup",
+        location: "Toronto",
+        date: new Date(),
         description:
           "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       }
@@ -65,8 +68,7 @@ export default new Vuex.Store({
   getters: {
     loadedMeetups(state) {
       return state.loadedMeetups.sort(
-        (meetupA, meetupB) =>
-          Date.parse(meetupA.date) - Date.parse(meetupB.date)
+        (meetupA, meetupB) => meetupA.date.getTime() - meetupB.date.getTime()
       );
     },
     featuredMeetups(state, getters) {
