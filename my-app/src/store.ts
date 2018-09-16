@@ -32,7 +32,8 @@ export default new Vuex.Store({
         date: "2018-10-04",
         description:
           "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
-      }    ],
+      }
+    ],
     user: {
       id: "12341423",
       registeredMeetups: ["qerqweqweqwe"]
@@ -51,7 +52,11 @@ export default new Vuex.Store({
         imageUrl: payload.imageUrl,
         description: payload.description,
         date: payload.date,
-        id:   'id_' + Math.random().toString(36).substr(2, 6)
+        id:
+          "id_" +
+          Math.random()
+            .toString(36)
+            .substr(2, 6)
       };
       // store it remote
       commit("createMeetup", meetup);
@@ -59,7 +64,10 @@ export default new Vuex.Store({
   },
   getters: {
     loadedMeetups(state) {
-      return state.loadedMeetups.sort((meetupA, meetupB) => Date.parse(meetupA.date) - Date.parse(meetupB.date));
+      return state.loadedMeetups.sort(
+        (meetupA, meetupB) =>
+          Date.parse(meetupA.date) - Date.parse(meetupB.date)
+      );
     },
     featuredMeetups(state, getters) {
       return getters.loadedMeetups.slice(0, 5);
