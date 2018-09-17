@@ -64,7 +64,7 @@ export default {
       return menuItems;
     },
     userIsAutenticated() {
-      return !! this.$store.getters.user;
+      return !!this.$store.getters.user;
     }
   }
 };

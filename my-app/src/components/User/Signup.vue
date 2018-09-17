@@ -1,5 +1,10 @@
 <template>
 <v-container grid-list-xs>
+    <v-layout row wrap v-if="error" >
+        <v-flex xs12 sm6 offset-sm3>
+            <app-alert @dismissed="onDismissed" :text="error"></app-alert>
+        </v-flex>
+    </v-layout>
     <v-layout row wrap>
         <v-flex xs12 sm6 offset-sm3>
             <v-card>
@@ -74,15 +79,21 @@ export default {
       return this.password === this.confirmPassword || "Passwords do not Match";
     },
     user() {
-        return this.$store.getters.user
+      return this.$store.getters.user;
+    },
+    error() {
+      return this.$store.getters.error;
+    },
+    loadding() {
+      return this.$store.getters.loadding;
     }
   },
   watch: {
-      user(value) {
-          if (value != null && value != undefined) {
-              this.$router.push('/')
-          }
+    user(value) {
+      if (value != null && value != undefined) {
+        this.$router.push("/");
       }
+    }
   },
   methods: {
     onSignup() {
@@ -91,6 +102,10 @@ export default {
         email: this.email,
         password: this.password
       });
+    },
+    onDismissed() {
+      console.log("Dismissed Alert!");
+      this.$store.dispatch("clearError");
     }
   }
 };

@@ -38,7 +38,9 @@ export default new Vuex.Store({
           "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       }
     ],
-    user: null
+    user: null,
+    loading: false,
+    error: null
   },
   mutations: {
     createMeetup(state, payload) {
@@ -46,6 +48,15 @@ export default new Vuex.Store({
     },
     setUser(state, payload) {
       state.user = payload;
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
+    },
+    clearError(state) {
+      state.error = null;
     }
   },
   actions: {
@@ -66,10 +77,13 @@ export default new Vuex.Store({
       commit("createMeetup", meetup);
     },
     signUserUp({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(result => {
+          commit("setLoading", false);
           // console.log("result.user", result.user);
           const newUser = {
             id: result.user.uid,
@@ -78,14 +92,22 @@ export default new Vuex.Store({
           commit("setUser", newUser);
         })
         .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error.message);
           console.log(error);
         });
     },
     signUserIn({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
       firebase
         .auth()
-        .signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
+        .signInAndRetrieveDataWithEmailAndPassword(
+          payload.email,
+          payload.password
+        )
         .then(result => {
+          commit("setLoading", false);
           // console.log("result", result);
           const newUser = {
             id: result.user.uid,
@@ -94,8 +116,16 @@ export default new Vuex.Store({
           commit("setUser", newUser);
         })
         .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error.message);
           console.log(error);
         });
+    },
+    setLoading({ commit }, payload) {
+      commit("setLoading", payload);
+    },
+    clearError({ commit }) {
+      commit("clearError");
     }
   },
   getters: {
@@ -114,8 +144,14 @@ export default new Vuex.Store({
         });
       };
     },
-    user (state) {
+    user(state) {
       return state.user;
+    },
+    loading(state) {
+      return state.loading;
+    },
+    error(state) {
+      return state.error;
     }
   }
 });
