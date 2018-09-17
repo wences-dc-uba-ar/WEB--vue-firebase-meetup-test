@@ -1,5 +1,10 @@
 <template>
 <v-container grid-list-xs>
+    <v-layout row wrap v-if="error" >
+        <v-flex xs12 sm6 offset-sm3>
+            <app-alert @dismissed="onDismissed" :text="error"></app-alert>
+        </v-flex>
+    </v-layout>
     <v-layout row wrap>
         <v-flex xs12 sm6 offset-sm3>
             <v-card>
@@ -32,7 +37,17 @@
                             </v-layout>
                             <v-layout row wrap>
                                 <v-flex xs12 sm6 offset-sm3>
-                                    <v-btn color="success" type="submit" :disabled="!formIsValid">Sign In</v-btn>
+                                    <v-btn
+                                        color="success"
+                                        type="submit"
+                                        :disabled="!formIsValid || loading"
+                                        :loading="loading"
+                                        >
+                                        Sign In
+                                        <span slot="loader" class="custom-loader">
+                                            <v-icon light>cached</v-icon>
+                                        </span>
+                                    </v-btn>
                                 </v-flex>
                             </v-layout>
                         </form>
@@ -54,16 +69,22 @@ export default {
   },
   computed: {
     formIsValid() {
-      return this.password  && this.email != "";
+      return this.password && this.email != "";
     },
     user() {
-        return this.$store.getters.user
+      return this.$store.getters.user;
+    },
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.loading;
     }
   },
   watch: {
       user(value) {
           if (value != null && value != undefined) {
-              this.$router.push('/')
+        this.$router.push("/");
           }
       }
   },
@@ -73,7 +94,73 @@ export default {
         email: this.email,
         password: this.password
       });
+    },
+    onDismissed() {
+      this.$store.dispatch("clearError");
     }
   }
 };
 </script>
+    loading() {
+      return this.$store.getters.loading;
+    }
+  },
+  watch: {
+    user(value) {
+      if (value != null && value != undefined) {
+        this.$router.push("/");
+      }
+    }
+  },
+  methods: {
+    onSignin() {
+      this.$store.dispatch("onSignIn", {
+        email: this.email,
+        password: this.password
+      });
+    },
+    onDismissed() {
+      this.$store.dispatch("clearError");
+    }
+  }
+};
+</script>
+
+<style>
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+</style>
