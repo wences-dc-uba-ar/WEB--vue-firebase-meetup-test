@@ -50,7 +50,17 @@
                             </v-layout>
                             <v-layout row wrap>
                                 <v-flex xs12 sm6 offset-sm3>
-                                    <v-btn color="success" type="submit" :disabled="!formIsValid">Sign Up</v-btn>
+                                    <v-btn
+                                        color="success"
+                                        type="submit"
+                                        :disabled="!formIsValid || loading"
+                                        :loading="loading"
+                                        >
+                                        Sign Up
+                                        <span slot="loader" class="custom-loader">
+                                            <v-icon light>cached</v-icon>
+                                        </span>
+                                    </v-btn>
                                 </v-flex>
                             </v-layout>
                         </form>
@@ -84,8 +94,8 @@ export default {
     error() {
       return this.$store.getters.error;
     },
-    loadding() {
-      return this.$store.getters.loadding;
+    loading() {
+      return this.$store.getters.loading;
     }
   },
   watch: {
@@ -104,9 +114,47 @@ export default {
       });
     },
     onDismissed() {
-      console.log("Dismissed Alert!");
       this.$store.dispatch("clearError");
     }
   }
 };
 </script>
+
+<style>
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+</style>
