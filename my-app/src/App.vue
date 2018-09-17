@@ -45,15 +45,27 @@ export default {
   components: {},
   data() {
     return {
-      sideNav: false,
-      menuItems: [
-        { icon: "supervisor_account", title: "List", link: "/meetups" },
-        { icon: "room", title: "Organize", link: "/meetup/new" },
-        { icon: "person", title: "Profile", link: "/profile" },
+      sideNav: false
+    };
+  },
+  computed: {
+    menuItems() {
+      let menuItems = [
         { icon: "face", title: "Sign Up", link: "/signup" },
         { icon: "lock_open", title: "Sign in", link: "/signin" }
-      ]
-    };
+      ];
+      if (this.userIsAutenticated) {
+        menuItems = [
+          { icon: "supervisor_account", title: "List", link: "/meetups" },
+          { icon: "room", title: "Organize", link: "/meetup/new" },
+          { icon: "person", title: "Profile", link: "/profile" }
+        ];
+      }
+      return menuItems;
+    },
+    userIsAutenticated() {
+      return !! this.$store.getters.user;
+    }
   }
 };
 </script>

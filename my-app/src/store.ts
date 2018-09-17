@@ -38,10 +38,7 @@ export default new Vuex.Store({
           "asdasd a dadqd qad  awdkak dakwg akudgaw d asdh qa aw hdad kwd akd bakwd  kawka "
       }
     ],
-    user: {
-      id: "12341423",
-      registeredMeetups: ["qerqweqweqwe"]
-    }
+    user: null
   },
   mutations: {
     createMeetup(state, payload) {
@@ -72,10 +69,26 @@ export default new Vuex.Store({
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
-        .then(user => {
-          console.log("user", user);
+        .then(result => {
+          // console.log("result.user", result.user);
           const newUser = {
-            id: user.uid,
+            id: result.user.uid,
+            registeredMeetups: []
+          };
+          commit("setUser", newUser);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    signUserIn({ commit }, payload) {
+      firebase
+        .auth()
+        .signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
+        .then(result => {
+          // console.log("result", result);
+          const newUser = {
+            id: result.user.uid,
             registeredMeetups: []
           };
           commit("setUser", newUser);
@@ -100,6 +113,9 @@ export default new Vuex.Store({
           return meetup.id === meetupId;
         });
       };
+    },
+    user (state) {
+      return state.user;
     }
   }
 });
