@@ -82,11 +82,11 @@ export default {
     }
   },
   watch: {
-      user(value) {
-          if (value != null && value != undefined) {
+    user(value) {
+      if (value != null && value != undefined) {
         this.$router.push("/");
-          }
       }
+    }
   },
   methods: {
     onSignin() {
@@ -101,66 +101,42 @@ export default {
   }
 };
 </script>
-    loading() {
-      return this.$store.getters.loading;
-    }
-  },
-  watch: {
-    user(value) {
-      if (value != null && value != undefined) {
-        this.$router.push("/");
-      }
-    }
-  },
-  methods: {
-    onSignin() {
-      this.$store.dispatch("onSignIn", {
-        email: this.email,
-        password: this.password
-      });
-    },
-    onDismissed() {
-      this.$store.dispatch("clearError");
-    }
-  }
-};
-</script>
 
 <style>
-  .custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(-180deg);
-    }
+  to {
+    transform: rotate(-180deg);
   }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(-180deg);
-    }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(-180deg);
-    }
+  to {
+    transform: rotate(-180deg);
   }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(-180deg);
-    }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
   }
+  to {
+    transform: rotate(-180deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(-180deg);
+  }
+}
 </style>

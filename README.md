@@ -27,5 +27,5 @@ npm run lint
 
 ### All together
 ```
-npm runlint --fix && npm run serve
+npm run lint --fix && npm run serve
 ```
