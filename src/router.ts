@@ -7,6 +7,7 @@ import Meetup from "@/components/Meetup/Meetup.vue";
 import Profile from "@/components/User/Profile.vue";
 import Signup from "@/components/User/Signup.vue";
 import Signin from "@/components/User/Signin.vue";
+import AuthGuard from "@/auth-guard";
 
 Vue.use(Router);
 
@@ -19,15 +20,6 @@ export default new Router({
       name: "home",
       component: Home
     },
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () =>
-    //     import(/* webpackChunkName: "about" */ "./views/About")
-    // },
     {
       path: "/meetups",
       name: "Meetups",
@@ -37,13 +29,20 @@ export default new Router({
     {
       path: "/meetup/new",
       name: "CreateMeetup",
-      component: CreateMeetup
+      component: CreateMeetup,
+      beforeEnter: AuthGuard
     },
     {
       path: "/meetup/:id",
       name: "Meetup",
       props: true,
       component: Meetup
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
+      beforeEnter: AuthGuard
     },
     {
       path: "/signup",
