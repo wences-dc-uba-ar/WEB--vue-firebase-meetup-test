@@ -1,8 +1,8 @@
 <template>
   <!-- <v-container> -->
   <v-container grid-list-xs>
-    <v-layout 
-      row 
+    <v-layout
+      row
       wrap>
       <v-flex xs12>
         <v-card>
@@ -31,7 +31,12 @@
 
 <script>
 export default {
-  props: ["id"],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     meetup() {
       return this.$store.getters.loadedMeetup(this.id);
