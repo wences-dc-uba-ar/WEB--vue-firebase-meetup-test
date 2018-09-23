@@ -8,11 +8,13 @@ import store from "./store";
 import DateFilter from "./filters/date";
 import firebase_config from "../firebase_config";
 import AlertCmp from "./components/Shared/Alert.vue";
+import EditMeetupDetailsDialog from "./components/Meetup/Edit/EditMeetupDetailsDialog.vue";
 
 Vue.config.productionTip = false;
 
 Vue.filter("date", DateFilter);
 Vue.component("app-alert", AlertCmp);
+Vue.component("app-edit-meetup-details-dialog", EditMeetupDetailsDialog);
 
 new Vue({
   router,

@@ -20,6 +20,42 @@ export default new Vuex.Store({
       let ms: Object[] = state.loadedMeetups;
       ms.push(payload);
     },
+    updateMeetupData(
+      state,
+      payload: {
+        id: String;
+        title?: String;
+        description?: String;
+        location?: String;
+        date?: String;
+      }
+    ) {
+      let meetup:
+        | {
+            id: String;
+            title?: String;
+            description?: String;
+            location?: String;
+            date?: String;
+          }
+        | undefined = state.loadedMeetups.find((meetup: { id: String }) => {
+        return meetup.id === payload.id;
+      });
+      if (meetup) {
+        if (payload.title) {
+          meetup!.title = payload.title;
+        }
+        if (payload.description) {
+          meetup!.description = payload.description;
+        }
+        if (payload.location) {
+          meetup!.location = payload.location;
+        }
+        if (payload.date) {
+          meetup!.date = payload.date;
+        }
+      }
+    },
     setUser(state, payload) {
       state.user = payload;
     },
@@ -104,6 +140,40 @@ export default new Vuex.Store({
         })
         .catch(error => {
           console.log(error);
+        });
+    },
+    updateMeetupData({ commit }, payload) {
+      commit("setLoading", true);
+      const updateObj: {
+        title?: String;
+        description?: String;
+        location?: String;
+        date?: String;
+      } = {};
+      if (payload.title) {
+        updateObj.title = payload.title;
+      }
+      if (payload.description) {
+        updateObj.description = payload.description;
+      }
+      if (payload.location) {
+        updateObj.location = payload.location;
+      }
+      if (payload.date) {
+        updateObj.date = payload.date;
+      }
+      firebase
+        .database()
+        .ref("meetups")
+        .child(payload.id)
+        .update(updateObj)
+        .then(() => {
+          commit("setLoading", false);
+          commit("updateMeetupData", payload);
+        })
+        .catch(error => {
+          console.log(error);
+          commit("setLoading", false);
         });
     },
     signUserUp({ commit }, payload) {
