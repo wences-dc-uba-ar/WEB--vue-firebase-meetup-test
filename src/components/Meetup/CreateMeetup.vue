@@ -1,26 +1,26 @@
 <template>
   <v-container grid-list-xs>
-    <v-layout 
-      row 
+    <v-layout
+      row
       wrap>
-      <v-flex 
-        xs12 
-        sm6 
+      <v-flex
+        xs12
+        sm6
         offset-sm3>
         <h1>Create a new Meetup</h1>
       </v-flex>
     </v-layout>
-    <v-layout 
-      row 
+    <v-layout
+      row
       wrap>
       <v-flex xs12 >
         <form @submit.prevent="onCreateMeetup">
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <v-text-field
                 name="title"
@@ -31,12 +31,12 @@
               />
             </v-flex>
           </v-layout>
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <v-text-field
                 name="location"
@@ -47,32 +47,51 @@
               />
             </v-flex>
           </v-layout>
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
+              offset-sm3>
+              <v-btn
+                color="primary"
+                @click="onPickFile">upload</v-btn>
+              <input
+                type="file"
+                style="display: none;"
+                ref="fileInput"
+                accept="image/*"
+                @change="onFilePicked">
+            </v-flex>
+          </v-layout>
+          <v-layout
+            row
+            wrap>
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <v-text-field
+                v-show="false"
                 name="imageUrl"
                 label="image URL"
                 id="image-url"
                 v-model="imageUrl"
                 required
               />
-              <img 
-                :src="imageUrl" 
-                alt="" 
+              <img
+                :src="imageUrl"
+                alt=""
                 height="150">
             </v-flex>
           </v-layout>
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <v-textarea
                 name="description"
@@ -85,22 +104,22 @@
               />
             </v-flex>
           </v-layout>
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <h4>Choose a Date & Time</h4>
             </v-flex>
           </v-layout>
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <v-date-picker
                 v-model="fecha"
@@ -108,12 +127,12 @@
                 :reactive="true"/>
             </v-flex>
           </v-layout>
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <v-time-picker
                 format="24hr"
@@ -121,12 +140,12 @@
                 v-model="hora"/>
             </v-flex>
           </v-layout>
-          <v-layout 
-            row 
+          <v-layout
+            row
             wrap>
-            <v-flex 
-              xs12 
-              sm6 
+            <v-flex
+              xs12
+              sm6
               offset-sm3>
               <v-btn
                 color="primary"
@@ -150,7 +169,8 @@ export default {
       imageUrl: "",
       description: "",
       fecha: "2018-10-20",
-      hora: "17:45"
+      hora: "17:45",
+      image: null
     };
   },
   computed: {
@@ -177,15 +197,35 @@ export default {
       if (!this.formIsValid) {
         return;
       }
+      if (!this.image) {
+        return;
+      }
       const meetupData = {
         title: this.title,
         location: this.location,
-        imageUrl: this.imageUrl,
+        image: this.image,
         description: this.description,
         date: this.dateUTC
       };
       this.$store.dispatch("createMeetup", meetupData);
       this.$router.push("/meetups");
+    },
+    onPickFile() {
+      this.$refs.fileInput.click();
+    },
+    onFilePicked(event) {
+      const files = event.target.files;
+      console.log("files", files);
+      let filename = files[0].name;
+      if (filename.lastIndexOf(".") <= 0) {
+        return alert("[@TODO: validacion] no punto en el filename");
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.imageUrl = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
     }
   }
 };
