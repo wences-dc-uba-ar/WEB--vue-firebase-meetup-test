@@ -74,12 +74,11 @@
               xs12 
               sm6 
               offset-sm3>
-              <v-text-field
+              <v-textarea
                 name="description"
                 label="Description"
                 id="description"
                 v-model="description"
-                textarea
                 rows="3"
                 required
                 outline
@@ -175,6 +174,9 @@ export default {
   },
   methods: {
     onCreateMeetup() {
+      if (!this.formIsValid) {
+        return;
+      }
       const meetupData = {
         title: this.title,
         location: this.location,
