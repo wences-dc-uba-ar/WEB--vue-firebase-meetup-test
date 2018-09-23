@@ -1,7 +1,9 @@
 <template>
   <!-- <v-container> -->
   <v-container grid-list-xs>
-    <v-layout row wrap>
+    <v-layout 
+      row 
+      wrap>
       <v-flex xs12>
         <v-card>
           <v-card-title primary-title>
@@ -11,7 +13,7 @@
           <v-img
             :src="meetup.imageUrl"
             height="400px"
-            ></v-img>
+          />
 
           <v-card-text>
             <div class="info--text">{{ meetup.date | date }} - {{ meetup.location }}</div>
