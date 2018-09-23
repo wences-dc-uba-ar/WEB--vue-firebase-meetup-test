@@ -27,7 +27,7 @@ export default new Vuex.Store({
         title?: String;
         description?: String;
         location?: String;
-        date?: String;
+        date?: Date;
       }
     ) {
       let meetup:
@@ -36,7 +36,7 @@ export default new Vuex.Store({
             title?: String;
             description?: String;
             location?: String;
-            date?: String;
+            date?: Date;
           }
         | undefined = state.loadedMeetups.find((meetup: { id: String }) => {
         return meetup.id === payload.id;
@@ -160,7 +160,7 @@ export default new Vuex.Store({
         updateObj.location = payload.location;
       }
       if (payload.date) {
-        updateObj.date = payload.date;
+        updateObj.date = payload.date.toISOString();
       }
       firebase
         .database()
@@ -184,7 +184,6 @@ export default new Vuex.Store({
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(({ user }) => {
           commit("setLoading", false);
-          // console.log("result.user", result.user);
           const newUser = {
             id: user && user.uid,
             registeredMeetups: []
@@ -208,7 +207,6 @@ export default new Vuex.Store({
         )
         .then(({ user }) => {
           commit("setLoading", false);
-          // console.log("result", result);
           const newUser = {
             id: user && user.uid,
             registeredMeetups: []

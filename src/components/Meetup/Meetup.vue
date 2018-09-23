@@ -29,6 +29,7 @@
             <template v-if="userIsCreator">
               <v-spacer/>
               <app-edit-meetup-details-dialog :meetup="meetup" />
+              <app-edit-meetup-date-dialog :meetup="meetup" />
             </template>
           </v-card-title>
 
