@@ -78,11 +78,23 @@ export default {
   methods: {
     getFecha(dt) {
       // return date.toJSON().substring(0, 10);      // UTC:
-      return dt.getFullYear() + '-' + ('0'+(dt.getMonth()+1)).slice(-2) + '-' + ('0'+dt.getDate()).slice(-2); // da en Local Timezone
+      return (
+        dt.getFullYear() +
+        "-" +
+        ("0" + (dt.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + dt.getDate()).slice(-2)
+      ); // da en Local Timezone
     },
     getHora(dt) {
       // return date.toJSON().substring(11, 19); // da en UTC
-      return ('0'+dt.getHours()).slice(-2) + ':' + ('0'+dt.getMinutes()).slice(-2) + ':' + dt.getSeconds(); // da en Local Timezone
+      return (
+        ("0" + dt.getHours()).slice(-2) +
+        ":" +
+        ("0" + dt.getMinutes()).slice(-2) +
+        ":" +
+        dt.getSeconds()
+      ); // da en Local Timezone
     },
     getDateUTC(fecha, hora) {
       const year = fecha.match(/^(\d+)-/)[1];
