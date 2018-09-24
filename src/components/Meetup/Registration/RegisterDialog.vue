@@ -2,21 +2,22 @@
   <v-dialog v-model="showDialog">
     <v-btn
       accent
+      color="primary"
       slot="activator"> {{ userIsRegistred ? "Unregister" : "Register" }}
     </v-btn>
 
     <v-card>
       <v-container>
-        <v-layout 
-          row 
+        <v-layout
+          row
           wrap>
           <v-flex xs12>
             <v-card-title primary-title>{{ userIsRegistred ? "Unregister" : "Register" }} from Meetup</v-card-title>
           </v-flex>
         </v-layout>
         <v-divider/>
-        <v-layout 
-          row 
+        <v-layout
+          row
           wrap>
           <v-flex xs12>
             <v-card-text>You can always change your decision later on.</v-card-text>

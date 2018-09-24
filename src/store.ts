@@ -287,6 +287,34 @@ export default new Vuex.Store({
     autoSignIn({ commit }, payload) {
       commit("setUser", { id: payload.uid, registeredMeetups: [], fbKeys: {} });
     },
+    fetchUserData({ commit, getters }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("/users/" + getters.user.id + "/registration/")
+        .once("value")
+        .then(data => {
+          const dataPairs = data.val();
+          let registeredMeetups = [];
+          let fbKeys = {};
+          for (let key in dataPairs) {
+            registeredMeetups.push(dataPairs[key]);
+            fbKeys[dataPairs[key]] = key;
+          }
+          const updatedUser = {
+            id: getters.user.id,
+            registeredMeetups: registeredMeetups,
+            fbKeys: fbKeys
+          };
+          commit("setLoading", false);
+          commit("setUser", updatedUser);
+        })
+        .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error.message);
+          console.log(error);
+        });
+    },
     logout({ commit }) {
       firebase.auth().signOut();
       commit("setUser", null);
